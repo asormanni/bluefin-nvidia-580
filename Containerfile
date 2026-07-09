@@ -30,7 +30,10 @@ RUN set -eux; \
     ; \
   chmod 1777 /tmp /var/tmp ; \
   dnf install -y \
-  virt-manager ; \
+  libvirt \
+  virt-manager \
+  git-delta \
+  ; \
   echo; \
   mkdir -p /var/lib/akmods; \
   chown akmods:akmods /var/lib/akmods; \
@@ -43,7 +46,8 @@ RUN set -eux; \
   dnf install -y /var/lib/akmods/kmod-nvidia-${KVER}-*.rpm; \
   ls -la /usr/lib/modules/${KVER}/extra/ || echo "Checking module location..."; \
   dnf remove -y kernel-devel; \
-  dnf clean all
+  dnf clean all ; \
+  systemctl enable --now virtqemud.socket ;
 
 # Customize os-release for bootloader branding 
 RUN set -eux; \
