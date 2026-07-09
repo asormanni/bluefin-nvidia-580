@@ -27,9 +27,10 @@ RUN set -eux; \
     pass \
     qemu \
     waydroid waydroid-selinux \
-    virt-manager \
     ; \
   chmod 1777 /tmp /var/tmp ; \
+  dnf install -y \
+  virt-manager ; \
   echo; \
   mkdir -p /var/lib/akmods; \
   chown akmods:akmods /var/lib/akmods; \
