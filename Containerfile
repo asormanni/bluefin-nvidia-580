@@ -4,7 +4,7 @@
 
 ARG BASE_IMAGE=ghcr.io/projectbluefin/bluefin
 
-FROM ${BASE_IMAGE}:latest
+FROM ${BASE_IMAGE}:testing
 
 RUN set -eux; \
   KVER=$(rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}'); \
@@ -23,11 +23,12 @@ RUN set -eux; \
   dnf config-manager setopt fedora-nvidia-580.priority=90; \
   # packages
   dnf install --disablerepo="fedora-multimedia" -y --setopt=tsflags=noscripts \
-    nvidia-driver akmod-nvidia nvidia-settings nvidia-driver-libs.i686 ; \
-    #pass \
-    #qemu \
-    #waydroid waydroid-selinux \
-    #; \
+    nvidia-driver akmod-nvidia nvidia-settings nvidia-driver-libs.i686 \
+    pass \
+    qemu \
+    waydroid waydroid-selinux \
+    virt-manager \
+    ; \
   chmod 1777 /tmp /var/tmp ; \
   echo; \
   mkdir -p /var/lib/akmods; \
