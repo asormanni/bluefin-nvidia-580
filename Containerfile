@@ -25,11 +25,11 @@ RUN set -eux; \
   dnf install --disablerepo="fedora-multimedia" -y --setopt=tsflags=noscripts \
     nvidia-driver akmod-nvidia nvidia-settings nvidia-driver-libs.i686 \
     pass \
-    qemu \
     waydroid waydroid-selinux \
     ; \
   chmod 1777 /tmp /var/tmp ; \
   dnf install -y \
+  qemu \
   libvirt \
   virt-manager \
   git-delta \
@@ -47,7 +47,11 @@ RUN set -eux; \
   ls -la /usr/lib/modules/${KVER}/extra/ || echo "Checking module location..."; \
   dnf remove -y kernel-devel; \
   dnf clean all ; \
-  systemctl enable --now virtqemud.socket ;
+  # Creazione esplicita dell'utente qemu (fallback se gli script RPM falliscono)
+  getent group qemu || groupadd --system qemu ; \
+  getent passwd qemu || useradd --system --gid qemu --groups kvm --no-create-home --home-dir / --shell /sbin/nologin --comment "QEMU virtual machine user" qemu ; \
+  # Rimosso il flag --now perché systemd non gira durante la build del container
+  systemctl enable virtqemud.socket ;
 
 # Customize os-release for bootloader branding 
 RUN set -eux; \
