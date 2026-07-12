@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Delete old untagged images
-        uses: actions/delete-package-versions@v6
+        uses: actions/delete-package-versions@v5
         with:
           package-name: bluefin-nvidia-580
           package-type: container
@@ -23,10 +23,10 @@ jobs:
           delete-only-untagged-versions: true
 
       - name: Delete old tagged images (keep recent)
-        uses: actions/delete-package-versions@v6
+        uses: actions/delete-package-versions@v5
         with:
           package-name: bluefin-nvidia-580
           package-type: container
-          min-versions-to-keep: 7
+          min-versions-to-keep: 4
           delete-only-pre-release-versions: false
           ignore-versions: '^(latest|stable)$'
