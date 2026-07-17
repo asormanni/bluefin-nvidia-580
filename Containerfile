@@ -24,8 +24,6 @@ RUN set -eux; \
   # packages
   dnf install --disablerepo="fedora-multimedia" -y --setopt=tsflags=noscripts \
     nvidia-driver akmod-nvidia nvidia-settings nvidia-driver-libs.i686 \
-    pass \
-    waydroid waydroid-selinux \
     ; \
   chmod 1777 /tmp /var/tmp ; \
   dnf install -y \
@@ -33,6 +31,8 @@ RUN set -eux; \
   libvirt \
   virt-manager \
   git-delta \
+  waydroid waydroid-selinux \
+  pass \
   ; \
   echo; \
   mkdir -p /var/lib/akmods; \
