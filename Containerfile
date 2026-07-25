@@ -11,11 +11,11 @@ RUN set -eux; \
   echo "Building for kernel: ${KVER}"; \
   rpm -e --nodeps kernel-devel-${KVER} 2>/dev/null || true; \
   if ! dnf install -y kernel-devel-${KVER}; then \
-    KVER_VER="${KVER%%-*}"; \
-    KVER_REST="${KVER#*-}"; \
-    KVER_ARCH="${KVER_REST##*.}"; \
-    KVER_REL="${KVER_REST%.*}"; \
-    dnf install -y "https://kojipkgs.fedoraproject.org/packages/kernel/${KVER_VER}/${KVER_REL}/${KVER_ARCH}/kernel-devel-${KVER}.rpm"; \
+  KVER_VER="${KVER%%-*}"; \
+  KVER_REST="${KVER#*-}"; \
+  KVER_ARCH="${KVER_REST##*.}"; \
+  KVER_REL="${KVER_REST%.*}"; \
+  dnf install -y "https://kojipkgs.fedoraproject.org/packages/kernel/${KVER_VER}/${KVER_REL}/${KVER_ARCH}/kernel-devel-${KVER}.rpm"; \
   fi; \
   ls -la /usr/src/kernels/; \
   cd /etc/yum.repos.d; \
@@ -23,8 +23,8 @@ RUN set -eux; \
   dnf config-manager setopt fedora-nvidia-580.priority=90; \
   # packages
   dnf install --disablerepo="fedora-multimedia" -y --setopt=tsflags=noscripts \
-    nvidia-driver akmod-nvidia nvidia-settings nvidia-driver-libs.i686 \
-    ; \
+  nvidia-driver akmod-nvidia nvidia-settings nvidia-driver-libs.i686 \
+  ; \
   chmod 1777 /tmp /var/tmp ; \
   dnf install -y \
   qemu \
@@ -33,15 +33,16 @@ RUN set -eux; \
   git-delta \
   waydroid waydroid-selinux \
   pass \
+  cups-pdf \
   ; \
   echo; \
   mkdir -p /var/lib/akmods; \
   chown akmods:akmods /var/lib/akmods; \
   ARCH=$(uname -m); \
   for MODULE in nvidia-kmod ; do \
-    SRPM=$(ls /usr/src/akmods/${MODULE}-*.src.rpm); \
-    echo "Building ${MODULE} akmod RPM for kernel ${KVER}..."; \
-    su -s /bin/bash akmods -c "cd /var/lib/akmods && HOME=/var/lib/akmods akmodsbuild --target ${ARCH} --kernels ${KVER} ${SRPM}"; \
+  SRPM=$(ls /usr/src/akmods/${MODULE}-*.src.rpm); \
+  echo "Building ${MODULE} akmod RPM for kernel ${KVER}..."; \
+  su -s /bin/bash akmods -c "cd /var/lib/akmods && HOME=/var/lib/akmods akmodsbuild --target ${ARCH} --kernels ${KVER} ${SRPM}"; \
   done; \
   dnf install -y /var/lib/akmods/kmod-nvidia-${KVER}-*.rpm; \
   ls -la /usr/lib/modules/${KVER}/extra/ || echo "Checking module location..."; \
