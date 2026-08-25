@@ -4,7 +4,7 @@
 
 ARG BASE_IMAGE=ghcr.io/projectbluefin/bluefin
 
-FROM ${BASE_IMAGE}:testing
+FROM ${BASE_IMAGE}:stable
 
 RUN set -eux; \
   KVER=$(rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}'); \
