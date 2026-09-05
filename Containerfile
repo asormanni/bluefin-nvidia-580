@@ -49,7 +49,7 @@ RUN set -eux; \
   ls -la /usr/lib/modules/${KVER}/extra/ || echo "Checking module location..."; \
   dnf remove -y kernel-devel; \
   dnf clean all ; \
-  rm -f /usr/lib/sysimage/rpm/*-wal /usr/lib/sysimage/rpm/*-shm ; \
+  rpmdb --rebuilddb ; \
   # Creazione esplicita dell'utente qemu (fallback se gli script RPM falliscono)
   getent group qemu || groupadd --system qemu ; \
   getent passwd qemu || useradd --system --gid qemu --groups kvm --no-create-home --home-dir / --shell /sbin/nologin --comment "QEMU virtual machine user" qemu ; \
