@@ -49,6 +49,9 @@ RUN set -eux; \
   ls -la /usr/lib/modules/${KVER}/extra/ || echo "Checking module location..."; \
   dnf remove -y kernel-devel; \
   dnf clean all ; \
+  cp -a /usr/share/rpm /usr/share/rpm-tmp && \
+  rm -rf /usr/share/rpm && \
+  mv /usr/share/rpm-tmp /usr/share/rpm && \
   rpmdb --rebuilddb ; \
   # Creazione esplicita dell'utente qemu (fallback se gli script RPM falliscono)
   getent group qemu || groupadd --system qemu ; \
