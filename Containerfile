@@ -2,10 +2,10 @@
 # Heavily inspired by https://github.com/serandel/bluefin-dx-slimbook (a big thank you)
 # Andrea Sormanni <andrea.sormanni@gmail.com>
 
-#ARG BASE_IMAGE=ghcr.io/projectbluefin/bluefin
 ARG BASE_IMAGE=ghcr.io/ublue-os/bluefin
 
-FROM ${BASE_IMAGE}:stable
+#FROM ${BASE_IMAGE}:stable
+FROM ${BASE_IMAGE}:latest
 
 RUN set -eux; \
   KVER=$(rpm -qa kernel --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}'); \
