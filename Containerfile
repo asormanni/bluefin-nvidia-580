@@ -1,4 +1,4 @@
-# Custom Bluefin image with Nvidia 580 LTS support (from negativo17 repo)
+# Custom Bluefin Classic image with Nvidia 580 LTS support (from negativo17 repo)
 # Heavily inspired by https://github.com/serandel/bluefin-dx-slimbook (a big thank you)
 # Andrea Sormanni <andrea.sormanni@gmail.com>
 
@@ -64,9 +64,9 @@ RUN set -eux; \
   NVIDIA_DIGEST=580-LTS; \
   CURRENT_VERSION=$(grep '^VERSION=' /usr/lib/os-release | cut -d'"' -f2); \
   NVIDIA_SHORT=$(echo "${NVIDIA_DIGEST}" | cut -c1-3); \
-  NEW_VERSION="${CURRENT_VERSION} + nvidia ${NVIDIA_SHORT}"; \
-  sed -i "s/^NAME=.*/NAME=\"Bluefin nvidia 580\"/" /usr/lib/os-release; \
+  NEW_VERSION="${CURRENT_VERSION} + Nvidia ${NVIDIA_SHORT}"; \
+  sed -i "s/^NAME=.*/NAME=\"Bluefin Classic Nvidia 580\"/" /usr/lib/os-release; \
   sed -i "s/^VERSION=.*/VERSION=\"${NEW_VERSION}\"/" /usr/lib/os-release; \
-  sed -i "s/^PRETTY_NAME=.*/PRETTY_NAME=\"Bluefin nvidia 580 (${NEW_VERSION})\"/" /usr/lib/os-release; \
+  sed -i "s/^PRETTY_NAME=.*/PRETTY_NAME=\"Bluefin Classic Nvidia 580 (${NEW_VERSION})\"/" /usr/lib/os-release; \
   sed -i "s/^VARIANT_ID=.*/VARIANT_ID=bluefin-nvidia-580/" /usr/lib/os-release; \
   sed -i "s|^HOME_URL=.*|HOME_URL=\"https://github.com/asormanni/bluefin-nvidia-580\"|" /usr/lib/os-release
