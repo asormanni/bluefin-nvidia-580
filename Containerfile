@@ -29,6 +29,18 @@ RUN set -eux; \
   chmod 1777 /tmp /var/tmp ; \
   dnf install -y \
   qemu \
+  qemu-kvm \
+  qemu-user-static \
+  qemu-user-binfmt \
+  qemu-block-* \
+  qemu-audio-* \
+  qemu-ui-* \
+  edk2-ovmf \
+  edk2-aarch64 \
+  edk2-riscv64 \
+  swtpm \
+  swtpm-tools \
+  guestfs-tools \ 
   libvirt \
   virt-manager \
   git-delta \
