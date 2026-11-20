@@ -25,9 +25,10 @@ RUN set -eux; \
   # packages
   dnf install --disablerepo="fedora-multimedia" -y --setopt=tsflags=noscripts \
   nvidia-driver akmod-nvidia nvidia-settings nvidia-driver-libs.i686 \
+  nvidia-driver-cuda libva-nvidia-driver \
   ; \
   chmod 1777 /tmp /var/tmp ; \
-  dnf install -y \
+  dnf install --disablerepo="fedora-multimedia" -y \
   qemu \
   qemu-kvm \
   qemu-user-static \
@@ -40,7 +41,7 @@ RUN set -eux; \
   edk2-riscv64 \
   swtpm \
   swtpm-tools \
-  guestfs-tools \ 
+  guestfs-tools \
   libvirt \
   virt-manager \
   git-delta \
